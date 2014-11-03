@@ -10,7 +10,11 @@ RUN apt-get update && apt-get -yq dist-upgrade && \
 
 RUN wget http://www.sqlite.org/2014/sqlite-autoconf-3080701.tar.gz -O - | tar -xz -C /tmp && \
     cd /tmp/sqlite-autoconf-3080701 && \
-    ./configure && \
+    ./configure --prefix=/usr --enable-static --disable-shared        \
+                CFLAGS="-g -O2 -DSQLITE_ENABLE_FTS3=1 \
+                -DSQLITE_ENABLE_COLUMN_METADATA=1     \
+                -DSQLITE_ENABLE_UNLOCK_NOTIFY=1       \
+                -DSQLITE_SECURE_DELETE=1" && \
     make && \
     make install
 
