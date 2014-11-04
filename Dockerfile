@@ -18,7 +18,7 @@ RUN apt-get clean && apt-get -yq autoremove && rm -rf /var/lib/apt/lists/* /tmp/
 
 VOLUME ["/data"]
 
-EXPOSE 53 8053
+EXPOSE 53/udp 53/tcp 8053
 
 ENTRYPOINT ["/opt/start.sh"]
 
