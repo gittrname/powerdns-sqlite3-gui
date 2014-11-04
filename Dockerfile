@@ -3,39 +3,19 @@ MAINTAINER David Noyes <david@raspberrypython.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get -yq dist-upgrade && \
-    apt-get install -yq wget \
-                        build-essential \
-                        git
+RUN apt-get update && apt-get -yq upgrade
 
-RUN wget http://www.sqlite.org/2014/sqlite-autoconf-3080701.tar.gz -O - | tar -xz -C /tmp && \
-    cd /tmp/sqlite-autoconf-3080701 && \
-    ./configure --prefix=/usr --enable-static --disable-shared        \
-                CFLAGS="-g -O2 -DSQLITE_ENABLE_FTS3=1 \
-                -DSQLITE_ENABLE_COLUMN_METADATA=1     \
-                -DSQLITE_ENABLE_UNLOCK_NOTIFY=1       \
-                -DSQLITE_SECURE_DELETE=1" && \
-    make && \
-    make install
+ADD ./powerdns_3.4.1-1_amd64.deb /tmp/powerdns_3.4.1-1_amd64.deb
+ADD ./sqlite3_3.8.7.1-1_amd64.deb /tmp/sqlite3_3.8.7.1-1_amd64.deb
 
-RUN apt-get install -yq autoconf automake bison flex g++ git libboost-all-dev libtool make pkg-config ragel libmysqlclient-dev
+RUN dpkg -i /tmp/sqlite3_3.8.7.1-1_amd64.deb && \
+    dpkg -i /tmp/powerdns_3.4.1-1_amd64.deb
 
-RUN cd /tmp && \
-    git clone https://github.com/PowerDNS/pdns.git && \
-    cd pdns && \
-    ./bootstrap && \
-    ./configure --with-modules="gsqlite3" --without-lua && \
-    make && \
-    make install
-
-RUN apt-get purge -yq wget \
-                     build-essential 
-                     git && \
-    apt-get clean && apt-get -yq autoremove && rm -rf /var/lib/apt/lists/* /tmp/*
+RUN apt-get clean && apt-get -yq autoremove && rm -rf /var/lib/apt/lists/* /tmp/*
 
 VOLUME ["/data"]
 
 EXPOSE 53 8053
 
 ENTRYPOINT ["pdns_server"]
-CMD ["--no-config", "--master", "--daemon=no", "--local-address=0.0.0.0", "--launch=gsqlite3", "--gsqlite3-database=/data/${SQLITE3_DB}", "--webserver", "--webserver-address=0.0.0.0", "--webserver-port=8053", "--webserver-password=$WEBPASSWD"]
+CMD ["--no-config", "--master", "--daemon=no", "--local-address=0.0.0.0", "--launch=gsqlite3", "--gsqlite3-database=/data/${SQLITE3_DB}", "--webserver", "--webserver-address=0.0.0.0", "--webserver-port=8053", "--webserver-password=$WEBPASSWD", "--experimental-json-interface"]
