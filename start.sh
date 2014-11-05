@@ -1,8 +1,24 @@
 #!/bin/bash
 
-if [[ ! -e /data/$SQLITE3_DB ]]; then
-	echo "Creating new database $SQLITE3_DB"
-	sqlite3 /data/$SQLITE3_DB < /opt/default_pdns.sql
-fi
+SQLITE3_DB=pdns.sqlite3
+SQLITE3_DB_HOME=/var/lib/powerdns
+DATA_VOLUME=/data
 
-pdns_server --no-config --master --daemon=no --local-address=0.0.0.0 --launch=gsqlite3 --gsqlite3-database=/data/$SQLITE3_DB --webserver --webserver-address=0.0.0.0 --webserver-port=8053 --webserver-password=$WEBPASSWD --experimental-json-interface --experimental-api-key=$WEBPASSWD $1
+
+#if [[ ! -e $SQLITE3_DB_HOME/$SQLITE3_DB.default ]]; then
+#    echo "Creating default database"
+#    mv $SQLITE3_DB_HOME/$SQLITE3_DB $SQLITE3_DB_HOME/$SQLITE3_DB.default
+#fi
+#
+#if [[ ! -e $DATA_VOLUME/$SQLITE3_DB ]]; then
+#    echo "Cloning default database"
+#    cp $SQLITE3_DB_HOME/$SQLITE3_DB.default $DATA_VOLUME/$SQLITE3_DB
+#fi
+#
+#if [[ ! -L $SQLITE3_DB_HOME/$SQLITE3_DB ]]; then
+#    echo "Linking existing DB from $DATA_VOLUME/$SQLITE3_DB to $SQLITE3_DB_HOME/$SQLITE3_DB"
+#    ln -s $DATA_VOLUME/$SQLITE3_DB $SQLITE3_DB_HOME/$SQLITE3_DB
+#fi
+
+echo "Starting pdns_server"
+pdns_server "$@"
