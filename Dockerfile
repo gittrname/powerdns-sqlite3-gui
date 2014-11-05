@@ -18,3 +18,5 @@ VOLUME ["/data"]
 EXPOSE 53/udp 53/tcp 8053
 
 ENTRYPOINT ["/opt/start.sh"]
+
+CMD ["--master", "--daemon=no", "--local-address=0.0.0.0", "--launch=gsqlite3", "--webserver", "--webserver-address=0.0.0.0", "--webserver-port=8053", "--webserver-password=$WEBPASSWD", "--experimental-json-interface", "--experimental-api-key=$WEBPASSWD"]
