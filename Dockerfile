@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get -yq upgrade
 
-RUN apt-get install -yq pdns-backend-sqlite3
+RUN apt-get install -yq pdns-server pdns-backend-sqlite3
 
 RUN apt-get clean && apt-get -yq autoremove && rm -rf /var/lib/apt/lists/*
 
