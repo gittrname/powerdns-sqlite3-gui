@@ -11,7 +11,7 @@ RUN apt-get clean && apt-get -yq autoremove && rm -rf /var/lib/apt/lists/*
 
 RUN rm -f /etc/powerdns/pdns.d/pdns.simplebind.conf
 
-ADD ./start.sh /opt/start.sh
+COPY ./start.sh /opt/start.sh
 
 VOLUME ["/data"]
 
