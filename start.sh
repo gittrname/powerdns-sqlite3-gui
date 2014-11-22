@@ -20,4 +20,4 @@ if [[ ! -L $SQLITE3_DB_HOME/$SQLITE3_DB ]]; then
 fi
 
 echo "Starting pdns_server"
-/usr/sbin/pdns_server --master --daemon=no --local-address=0.0.0.0 --launch=gsqlite3 --webserver=yes --webserver-address=0.0.0.0 --webserver-port=80 --webserver-password=${WEBPASSWD} --experimental-json-interface --experimental-api-key=${WEBPASSWD} "$@"
+/usr/sbin/pdns_server --daemon=no --local-address=0.0.0.0 --launch=gsqlite3 --webserver=yes --webserver-address=0.0.0.0 --webserver-port=80 --webserver-password=${WEBPASSWD} --experimental-json-interface --experimental-api-key=${WEBPASSWD} "$@"

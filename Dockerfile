@@ -2,6 +2,7 @@ FROM debian:jessie
 MAINTAINER David Noyes <david@raspberrypython.com>
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV WEBPASSWD changeme
 
 RUN apt-get update && apt-get -yq upgrade
 
