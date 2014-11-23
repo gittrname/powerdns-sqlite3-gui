@@ -4,11 +4,11 @@ MAINTAINER David Noyes <david@raspberrypython.com>
 ENV DEBIAN_FRONTEND noninteractive
 ENV WEBPASSWD changeme
 
-RUN apt-get update && apt-get -yq upgrade
-
-RUN apt-get install -yq pdns-server pdns-backend-sqlite3
-
-RUN apt-get clean && apt-get -yq autoremove && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -yq pdns-server pdns-backend-sqlite3 && \
+    apt-get clean && \
+    apt-get -yq autoremove && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN rm -f /etc/powerdns/pdns.d/pdns.simplebind.conf
 
