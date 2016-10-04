@@ -1,8 +1,19 @@
-powerdns-sqlite3
+powerdns-sqlite3-gui
 ================
 
-Docker container with the latest Debian Jessie packages of Sqlite 3.8.7 and PowerDNS 3.4
+powerdns-sqlite3にWebGUIのPowerDNS-Adminをパッケージしました。
+
+■変更点
+
+・PowerDNS-Adminが追加、それに伴い標準のWebサーバー機能は8080ポートで動作するよう修正。
+
+・環境変数に「RECURSOR」を追加。これにより設定外ドメインの外部問い合わせ先を指定できます。
+
 
 ###Usage:
 
-docker run -d --name pdns -p 53:53/udp -p 53:53/tcp -p 80:80 -v /your/shared/volume:/data -e "WEBPASSWD=password" raspberrypython/powerdns-sqlite3:latest
+git clone https://github.com/gittrname/powerdns-sqlite3-gui.git
+
+docker build -t powerdns-sqlite3-gui powerdns-sqlite3-gui
+
+docker run -d --name pdns -p 53:53/udp -p 53:53/tcp -p 80:80 -p 8080:8080 -v /your/shared/volume:/data -e "WEBPASSWD=password" -e "RECURSOR=8.8.8.8" powerdns-sqlite3-gui:latest
