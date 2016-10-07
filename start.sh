@@ -25,4 +25,4 @@ echo "Starting powerdns-Admin"
 /bin/bash -c "cd /var/lib/powerdns-admin/ && . ./flask/bin/activate && ./create_db.py && ./run.py" &
 
 echo "Starting pdns_server"
-/usr/sbin/pdns_server --daemon=no --allow-recursion=172.17.0.0/24 --recursor=${RECURSOR} --disable-axfr=yes --local-address=0.0.0.0 --launch=gsqlite3 --webserver=yes --webserver-address=0.0.0.0 --webserver-port=8080 --webserver-password=${WEBPASSWD} --experimental-json-interface=yes --experimental-api-key=${WEBPASSWD} "$@"
+/usr/sbin/pdns_server --daemon=no --allow-recursion=0.0.0.0 --recursor=${RECURSOR} --disable-axfr=yes --local-address=0.0.0.0 --launch=gsqlite3 --webserver=yes --webserver-address=0.0.0.0 --webserver-port=8080 --webserver-password=${WEBPASSWD} --experimental-json-interface=yes --experimental-api-key=${WEBPASSWD} "$@"
