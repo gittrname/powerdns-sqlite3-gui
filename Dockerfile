@@ -4,7 +4,7 @@ MAINTAINER ペール <txgfx504@yahoo.co.jp>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV WEBPASSWD changeme
-ENV RECURSOR changeme
+ENV RECURSOR 8.8.8.8
 
 RUN apt-get update && \
     apt-get install -yq pdns-server pdns-backend-sqlite3 git python python-dev python-pip libsasl2-dev libldap2-dev libssl-dev && \
