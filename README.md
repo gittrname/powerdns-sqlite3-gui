@@ -1,14 +1,15 @@
 powerdns-sqlite3-gui
 ================
 
-powerdns-sqlite3‚ÉWebGUI‚ÌPowerDNS-Admin‚ğƒpƒbƒP[ƒW‚µ‚Ü‚µ‚½B
+powerdns-sqlite3ã«WebGUIã®PowerDNS-Adminã‚’ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã—ã¾ã—ãŸã€‚
 
-¡•ÏX“_
+â– å¤‰æ›´ç‚¹
 
-EPowerDNS-Admin‚ª’Ç‰ÁA‚»‚ê‚É”º‚¢•W€‚ÌWebƒT[ƒo[‹@”\‚Í8080ƒ|[ƒg‚Å“®ì‚·‚é‚æ‚¤C³B
+ãƒ»PowerDNS-AdminãŒè¿½åŠ ã€ãã‚Œã«ä¼´ã„æ¨™æº–ã®Webã‚µãƒ¼ãƒãƒ¼æ©Ÿèƒ½ã¯8080ãƒãƒ¼ãƒˆã§å‹•ä½œã™ã‚‹ã‚ˆã†ä¿®æ­£ã€‚
 
-EŠÂ‹«•Ï”‚ÉuRECURSORv‚ğ’Ç‰ÁB‚±‚ê‚É‚æ‚èİ’èŠOƒhƒƒCƒ“‚ÌŠO•”–â‚¢‡‚í‚¹æ‚ğw’è‚Å‚«‚Ü‚·B
+ãƒ»ç’°å¢ƒå¤‰æ•°ã«ã€ŒRECURSORã€ã‚’è¿½åŠ ã€‚ã“ã‚Œã«ã‚ˆã‚Šè¨­å®šå¤–ãƒ‰ãƒ¡ã‚¤ãƒ³ã®å¤–éƒ¨å•ã„åˆã‚ã›å…ˆã‚’æŒ‡å®šã§ãã¾ã™ã€‚
 
+ãƒ»ç’°å¢ƒå¤‰æ•°ã«ã€ŒALLOW_RECURSIONã€ã‚’è¿½åŠ 
 
 ###Usage:
 
@@ -16,4 +17,4 @@ git clone https://github.com/gittrname/powerdns-sqlite3-gui.git
 
 docker build -t powerdns-sqlite3-gui powerdns-sqlite3-gui
 
-docker run -d --name pdns -p 53:53/udp -p 53:53/tcp -p 80:80 -p 8080:8080 -v /your/shared/volume:/data -e "WEBPASSWD=password" -e "RECURSOR=8.8.8.8" powerdns-sqlite3-gui:latest
+docker run -d --name pdns -p 53:53/udp -p 53:53/tcp -p 80:80 -p 8080:8080 -v /your/shared/volume:/data -e "WEBPASSWD=password" -e "RECURSOR=8.8.8.8" -e "ALLOW_RECURSION=192.168.1.0/24" powerdns-sqlite3-gui:latest
